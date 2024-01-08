@@ -202,8 +202,8 @@ const marketItems = [
     coinNo: "45",
   },
   {
-    img: knife,
-    name: "blade",
+    img: axe,
+    name: "axe",
     coinImg: coin,
     coinNo: "45",
   },
@@ -258,6 +258,24 @@ const marketItems = [
   {
     img: key,
     name: "blade",
+    coinImg: coin,
+    coinNo: "45",
+  },
+  {
+    img: book,
+    name: "spells ",
+    coinImg: coin,
+    coinNo: "45",
+  },
+  {
+    img: axe,
+    name: "axe",
+    coinImg: coin,
+    coinNo: "45",
+  },
+  {
+    img: magicPotion,
+    name: "potion ",
     coinImg: coin,
     coinNo: "45",
   },
