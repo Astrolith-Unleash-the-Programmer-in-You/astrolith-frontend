@@ -12,9 +12,12 @@ const MarketPlaceContent = () => {
       <div className="flex gap-3 flex-wrap">
         {marketItems.map((item) => (
           <div className="rounded-xl p-[1.7rem] border-[1px] bg-[#232323] lg:w-[15%] w-[30%] flex flex-col justify-center items-center">
-            <img className="w-[5rem] h-[5rem] border-b-2 mb-3" src={item.img} />
+            <img
+              className="w-[5rem] h-[5rem] border-b-2 mb-3 object-cover "
+              src={item.img}
+            />
 
-            <h1 className="capitalize font-semibold">{item.name}</h1>
+            <h1 className="capitalize why_p font-semibold">{item.name}</h1>
 
             <div className="flex  justify-center items-center">
               <img
@@ -22,7 +25,7 @@ const MarketPlaceContent = () => {
                 src={item.coinImg}
                 alt="coin"
               />
-              <h1> {item.coinNo}</h1>
+              <h1 className="why_p"> {item.coinNo}</h1>
             </div>
           </div>
         ))}

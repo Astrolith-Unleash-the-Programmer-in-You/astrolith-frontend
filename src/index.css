@@ -51,10 +51,9 @@
   -webkit-text-fill-color: transparent;
 }
 .why_p {
-  color: rgba(255, 255, 255, 0.66);
-
+  /* color: rgba(255, 255, 255, 0.66); */
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   text-align: center;
-  font-family: Inter;
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
