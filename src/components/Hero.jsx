@@ -3,6 +3,7 @@ import { hb, heading, play } from "../assets";
 import Navbar from "./Navbar";
 import { Text, jsImg } from "../assets/Landing page";
 import React from "react";
+import Loader from "./Loader";
 
 const Hero = () => {
   return (
@@ -16,7 +17,7 @@ const Hero = () => {
       <Navbar />
 
       {/* mobile view */}
-      <div className="lg:hidden relative ml-10 lg:mt-[3rem] py-32  mb-[10rem] flex flex-col gap-3">
+      <div className="lg:hidden relative ml-10 lg:mt-[3rem] py-32 mt-[3.7rem] mb-[10rem] flex flex-col gap-3">
         {/* <h1 className="hero_logo">ASTROLITH</h1> */}
         <img className="w-[80%]" src={heading} alt="head" />
 

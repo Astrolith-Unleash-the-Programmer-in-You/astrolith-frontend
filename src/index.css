@@ -72,6 +72,12 @@
 
   backdrop-filter: blur(15px);
 }
+.loader {
+  border-radius: 10000px;
+  background: rgba(250, 247, 247, 0.18);
+
+  backdrop-filter: blur(5px);
+}
 .cert {
   display: flex;
   width: 670px;
