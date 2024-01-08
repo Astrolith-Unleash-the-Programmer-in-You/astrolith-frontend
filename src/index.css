@@ -68,7 +68,7 @@
 .bg {
   border-radius: 10000px;
   background: rgba(0, 0, 0, 0.18);
-
+  /* background: #ffffff98; */
   backdrop-filter: blur(15px);
 }
 .loader {

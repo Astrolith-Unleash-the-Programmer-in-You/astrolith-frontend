@@ -9,13 +9,15 @@ const MarketPlaceContent = () => {
         Weapons and potions (230){" "}
       </h1>
 
-      <div className="flex gap-3 flex-wrap">
+      <div className="flex gap-3 justify-center flex-wrap">
         {marketItems.map((item) => (
-          <div className="rounded-xl p-[1.7rem] border-[1px] bg-[#232323] lg:w-[15%] w-[30%] flex flex-col justify-center items-center">
+          <div className="rounded-xl p-[1.7rem] border-[1px] bg-[#232323] lg:w-[15%] w-[46%] flex flex-col justify-center items-center">
             <img
-              className="w-[5rem] h-[5rem] border-b-2 mb-3 object-cover "
+              className="w-[5rem] h-[5rem] mb-3 object-contain "
               src={item.img}
             />
+
+            <h1 className="w-[5.9rem] h-[0.1rem]  mb-3 bg-[#ffffff98]"></h1>
 
             <h1 className="capitalize why_p font-semibold">{item.name}</h1>
 
