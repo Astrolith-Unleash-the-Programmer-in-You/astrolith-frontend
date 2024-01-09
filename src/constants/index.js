@@ -47,7 +47,6 @@ import {
   player4,
   silver,
 } from "../assets";
-import { book, crest, key } from "../assets/marketplace";
 import {
   certificate,
   tsilver,
@@ -65,7 +64,7 @@ const navLinks = [
     img: home,
   },
   {
-    id: "marketplace",
+    id: "marketPlace",
     title: "MarketPlace",
     img: marketplace,
   },
@@ -75,7 +74,7 @@ const navLinks = [
     img: lore,
   },
   {
-    id: "/",
+    id: "about",
     title: "About",
     img: about,
   },
@@ -100,12 +99,12 @@ const topPlayers = [
     userName: "Diamond Level",
     exp: "23,988",
   },
-  // {
-  //   img: player4,
-  //   handle: "@Justinno322",
-  //   userName: "Diamond Level",
-  //   exp: "23,988",
-  // },
+  {
+    img: player4,
+    handle: "@Justinno322",
+    userName: "Diamond Level",
+    exp: "23,988",
+  },
 ];
 
 const dashLinks = [
@@ -202,8 +201,8 @@ const achievements = [
 
 const marketItems = [
   {
-    img: book,
-    name: "spells ",
+    img: axe,
+    name: "axe",
     coinImg: coin,
     coinNo: "45",
   },
@@ -232,12 +231,6 @@ const marketItems = [
     coinNo: "45",
   },
   {
-    img: book,
-    name: "blade ",
-    coinImg: coin,
-    coinNo: "45",
-  },
-  {
     img: magicPotion,
     name: " potion ",
     coinImg: coin,
@@ -255,24 +248,24 @@ const marketItems = [
     coinImg: coin,
     coinNo: "45",
   },
-  {
-    img: crest,
-    name: "blade",
-    coinImg: coin,
-    coinNo: "45",
-  },
-  {
-    img: key,
-    name: "blade",
-    coinImg: coin,
-    coinNo: "45",
-  },
-  {
-    img: book,
-    name: "spells ",
-    coinImg: coin,
-    coinNo: "45",
-  },
+  // {
+  //   img: crest,
+  //   name: "blade",
+  //   coinImg: coin,
+  //   coinNo: "45",
+  // },
+  // {
+  //   img: key,
+  //   name: "blade",
+  //   coinImg: coin,
+  //   coinNo: "45",
+  // },
+  // {
+  //   img: book,
+  //   name: "spells ",
+  //   coinImg: coin,
+  //   coinNo: "45",
+  // },
   {
     img: axe,
     name: "axe",
@@ -355,3 +348,9 @@ const marketItems = [
 // ];
 
 export { navLinks, topPlayers, dashLinks, achievements, marketItems };
+
+//protocol did
+export const CONSTANTS = {
+	PROTOCOLDID:
+		"did:ion:EiCCk6u6eU4KBzXxQHlqK-zQjv76RryVUS1WLwSri9C9JA:eyJkZWx0YSI6eyJwYXRjaGVzIjpbeyJhY3Rpb24iOiJyZXBsYWNlIiwiZG9jdW1lbnQiOnsicHVibGljS2V5cyI6W3siaWQiOiJkd24tc2lnIiwicHVibGljS2V5SndrIjp7ImNydiI6IkVkMjU1MTkiLCJrdHkiOiJPS1AiLCJ4IjoibnlNbVNoSF9rVTlHcUI0R2hVcUpNWFlxc3Y2MjlXa3dxaVlDeEdTX1RxWSJ9LCJwdXJwb3NlcyI6WyJhdXRoZW50aWNhdGlvbiJdLCJ0eXBlIjoiSnNvbldlYktleTIwMjAifSx7ImlkIjoiZHduLWVuYyIsInB1YmxpY0tleUp3ayI6eyJjcnYiOiJzZWNwMjU2azEiLCJrdHkiOiJFQyIsIngiOiI2aUduaFFadjFBdUtfVDA3X1Q1WXdYOEpnRFg4ZjFjSDVDTDktVXRUTnIwIiwieSI6IjlVdHVINEhKOUw0Z1RqdDE1UXNzNDBYNXNmaDBLOGpGejF2bl91aUE0S2MifSwicHVycG9zZXMiOlsia2V5QWdyZWVtZW50Il0sInR5cGUiOiJKc29uV2ViS2V5MjAyMCJ9XSwic2VydmljZXMiOlt7ImlkIjoiZHduIiwic2VydmljZUVuZHBvaW50Ijp7ImVuY3J5cHRpb25LZXlzIjpbIiNkd24tZW5jIl0sIm5vZGVzIjpbImh0dHBzOi8vZHduLnRiZGRldi5vcmcvZHduMiIsImh0dHBzOi8vZHduLnRiZGRldi5vcmcvZHduMCJdLCJzaWduaW5nS2V5cyI6WyIjZHduLXNpZyJdfSwidHlwZSI6IkRlY2VudHJhbGl6ZWRXZWJOb2RlIn1dfX1dLCJ1cGRhdGVDb21taXRtZW50IjoiRWlDWkhXWWdkVGpCbDQ3aHBrZUE2eUhySE5rN0tnWGJzV1R6V25PcWVtUXJGZyJ9LCJzdWZmaXhEYXRhIjp7ImRlbHRhSGFzaCI6IkVpQnNLQW82eEJ1ZjV2WDF5dHhyZzE4WXlQY296QkRyVEdCWmdRMDlNUDNmM3ciLCJyZWNvdmVyeUNvbW1pdG1lbnQiOiJFaUJkVU1pUGlyMnAzZFRTbTEwdDVOUW5rV3ZTdktLTVNOZDZfMHRTNjZOWTNRIn19",
+};
