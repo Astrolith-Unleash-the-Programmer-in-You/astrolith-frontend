@@ -10,7 +10,7 @@ const Navigator = () => {
   return (
     <div className="flex items-start  justify-items-start">
       {/* left */}
-      <ul className="bg-[#232323] hidden md:flex h-[120vh] flex-col justify-center p-5 w-[35vh] list-none gap-10">
+      <ul className="bg-[#232323]  hidden md:flex h-[120vh] flex-col  p-5 w-[35vh] list-none gap-10">
         {dashLinks.map((Link) => (
           <li
             className="w-[10.3rem] text-center h-[2.2erm] cursor-pointer"
