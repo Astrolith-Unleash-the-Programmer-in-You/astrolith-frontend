@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const DashbordNavbar = () => {
   return (
-    <div className="lg:flex hidden w-full  border-b-[0.1px] p-3 items-center gap-10">
+    <div className="md:flex hidden w-full  border-b-[0.1px] p-3 items-center gap-10">
       <Link to="/" className="max-w-[9.9rem] max-h-[2.2rem]">
         <img className="" src={dashboardLogo} />
       </Link>

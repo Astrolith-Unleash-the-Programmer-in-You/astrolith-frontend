@@ -13,7 +13,7 @@ const Navigator = () => {
       <ul className="bg-[#232323] hidden lg:flex h-[120vh] flex-col justify-center p-5 w-[35vh] list-none gap-10">
         {dashLinks.map((Link) => (
           <li
-            className="w-[10.3rem] h-[2.2erm] cursor-pointer"
+            className="w-[10.3rem] text-center h-[2.2erm] cursor-pointer"
             key={Link.id}
             onClick={() => setActive(Link.title)}
           >
