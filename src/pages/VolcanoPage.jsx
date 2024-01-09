@@ -2,7 +2,10 @@
 // import { OrbitControls } from "@react-three/drei";
 // import VolcanoCanvas from "../canvas/VolcanoCanvas";
 
+
 const VolcanoPage = () => {
+
+
   return (
     <div>
       <div className="w-full h-screen absolute">{/* <PhaseCanvas /> */}</div>
