@@ -10,8 +10,8 @@ const MarketPlaceContent = () => {
       </h1>
 
       <div className="flex gap-3 justify-center flex-wrap">
-        {marketItems.map((item) => (
-          <div className="rounded-xl p-[1.7rem] border-[1px] bg-[#232323] lg:w-[15%] w-[46%] flex flex-col justify-center items-center">
+        {marketItems.map((item, index) => (
+          <div key={index} className="rounded-xl p-[1.7rem] border-[1px] bg-[#232323] lg:w-[15%] w-[46%] flex flex-col justify-center items-center">
             <img
               className="w-[5rem] h-[5rem] mb-3 object-contain "
               src={item.img}

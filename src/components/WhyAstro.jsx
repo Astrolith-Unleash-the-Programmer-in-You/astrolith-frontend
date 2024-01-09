@@ -7,10 +7,12 @@ const WhyAstro = () => {
   return (
     <div className="">
       <div className="flex flex-col justify-center my-5 items-center">
-        {/* <h1 className="font-bold text-3xl">Why astrolith</h1> */}
-        <img className="w-[80%] " src={whyAstro} alt="head" />
+        <h1 className="font-bold text-4xl sm:text-[3.5rem] mb-5">
+          Why Astrolith
+        </h1>
+        {/* <img className="w-[80%] " src={whyAstro} alt="head" /> */}
 
-        <p className=" why_p ">
+        <p className="text-xl text-white/60 max-w-[27.6rem] text-center mx-auto">
           Revolutionizing Programming Education through Immersive Gamification
         </p>
       </div>
