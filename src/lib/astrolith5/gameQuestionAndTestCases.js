@@ -11,7 +11,9 @@ export class GameQuestionAndTestCases {
         web5,
         protocol,
         gameQTCSchema,
-        protocolID){
+        protocolID,
+        protocolReady,
+        currentUser){
         this.protocolID = protocolID;
         this.protocol = protocol;
         this.web5 = web5;
@@ -21,11 +23,14 @@ export class GameQuestionAndTestCases {
             protocolPath: "gameQuestionAndTestCases",
             schema: gameQTCSchema,
         };
+        this.currentUser = currentUser;
+        this.protocolReady = protocolReady
 
     }
 
     //get questions and test case object
     getQTC= async(qtcRecordID)=>{
+        await this.protocolReady;
         const { record:QTCData } = await this.web5.dwn.records.read({
             from:this.protocolID,
             message: {
@@ -41,8 +46,10 @@ export class GameQuestionAndTestCases {
 
     //get all quesitons and test cases
     getAllQTCs = async ()=>{
+         await this.protocolReady;
+         console.log("chekcalled", this.protocolID === this.currentUser);
         const { record:qtcDatas } = await this.web5.dwn.records.read({
-            from:this.protocolID,
+            // from:this.protocolID,
             message: {
                     filter: {
                         ...this.gameQuestionAndTestCasesFilter,
@@ -74,7 +81,7 @@ export class GameQuestionAndTestCases {
         data: qtcObject,
         message: {
             ...this.gameQuestionAndTestCasesFilter,
-            recipient: this.protocolID,
+            // recipient: this.protocolID,
             published: true,
             dataFormat: "application/json"
         },
@@ -82,8 +89,8 @@ export class GameQuestionAndTestCases {
         console.log(qtcData); 
 
         //attach qtc to protocol DID
-       const {status} = await qtcData.send(this.protocolID);
-       console.log(status)
+       const {status} = await qtcData.send(this.currentUser);
+    //    console.log(status,this.protocolID)
         return qtcData;
     };
 
