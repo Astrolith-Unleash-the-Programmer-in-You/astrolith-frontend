@@ -1,6 +1,7 @@
 import React from "react";
 import { Diamond, coin, dashboardLogo, magicPotion } from "../../assets";
 import { Link } from "react-router-dom";
+import { IoIosArrowDown } from "react-icons/io";
 
 const DashbordNavbar = () => {
   return (
@@ -10,7 +11,7 @@ const DashbordNavbar = () => {
       </Link>
 
       <div className="flex justify-between w-full">
-        <ul className="hidden lg:flex gap-2">
+        <ul className="hidden md:flex gap-5">
           <li className="flex px-3 justify-center items-center rounded-lg shadow-sm bg-[#434343]">
             <img className="w-[1.8rem] h-[1.8rem]" src={coin} />
             <p>34,678</p>
@@ -32,8 +33,9 @@ const DashbordNavbar = () => {
           </li>
         </ul>
 
-        <Link to="/profile" className="bg-[#434343] p-2 rounded-3xl">
+        <Link to="/profile" className=" flex items-center p-2 rounded-3xl">
           <img className="w-[1.8rem] h-[1.8rem] " src={Diamond} />
+          <IoIosArrowDown size={20} className="text-[#B8A59D]" />
         </Link>
       </div>
     </div>
