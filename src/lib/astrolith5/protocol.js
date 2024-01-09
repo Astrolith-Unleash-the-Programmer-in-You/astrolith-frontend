@@ -255,12 +255,12 @@ export class AstrolithProtocol {
                 console.log({userDID,protocolDID})
 
 			const {status:s1}=await protocol.send(userDID);
-			const { status: s2 } = await protocol.send(protocolDID);
+			// const { status: s2 } = await protocol.send(protocolDID);
 			console.log(
 				"Protocol configured error source",
 				configureStatus,
 				protocol,
-                s1,s2
+                s1
 			);
 			return protocol;
 		};
