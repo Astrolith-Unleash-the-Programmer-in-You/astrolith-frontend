@@ -26,7 +26,10 @@
 //   } from "../assets";
 
 import {
+  CertificateButton,
+  DashboardButton,
   Diamond,
+  MarketplaceButton,
   about,
   axe,
   blade,
@@ -109,17 +112,20 @@ const dashLinks = [
   {
     id: "dashboard",
     title: "Dashboard",
-    img: dashboard,
+    text: dashboard,
+    activeText: DashboardButton,
   },
   {
     id: "marketPlace",
     title: "MarketPlace",
-    img: marketplace,
+    text: marketplace,
+    activeText: MarketplaceButton,
   },
   {
     id: "certificate",
     title: "Certificate",
-    img: certificate,
+    text: certificate,
+    activeText: CertificateButton,
   },
   {
     id: "certificate",

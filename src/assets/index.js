@@ -12,8 +12,8 @@ import heading from "./Heading.png";
 import home from "./Home.png";
 import lore from "./Lore.png";
 import about from "./About.png";
-import aboutImg from "./aboutImg.svg";
-import aboutMobile from "./aboutMobile.svg";
+import aboutImg from "./Landing page/About Astrolith.png";
+import aboutMobile from "./Landing page/about mobile.svg";
 import hiw from "./hiw.svg";
 import hiwMobile from "./hiwMobile.svg";
 import tech from "./tech.svg";
@@ -32,10 +32,17 @@ import knife from "./knife.svg";
 import axe from "./axe.svg";
 import hammer from "./hammer.svg";
 import magicPotion from "./magic potion.svg";
-
+import dashboardLogo from "./dashboard-logo.svg";
+import CertificateButton from "./CertificateButton.svg";
+import MarketplaceButton from "./MarketplaceButton.svg";
+import DashboardButton from "./DashboardButton.svg";
 export {
   logo,
   menuIcon,
+  dashboardLogo,
+  CertificateButton,
+  MarketplaceButton,
+  DashboardButton,
   hb,
   home,
   lore,

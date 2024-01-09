@@ -15,11 +15,13 @@ import { Loader, WhyAstro } from "../components";
 // import About from '../components/About'
 import Hero from "../components/Hero";
 import TopPlayers from "../components/TopPlayers";
+import About from "../components/Home/About";
 
 const Home = () => {
   return (
     <div>
       <Hero />
+      <About />
 
       <div className="">
         <WhyAstro />
@@ -28,8 +30,6 @@ const Home = () => {
       {/* laptop view */}
       <Suspense fallback={<Loader />}>
         <div className="hidden lg:block md:block">
-          <img src={aboutImg} />
-
           <img className="m-auto mt-20" src={hiw} />
 
           <img className="m-auto mt-20" src={title} />
@@ -45,8 +45,6 @@ const Home = () => {
       {/* mobile view */}
       <Suspense fallback={<Loader />}>
         <div className=" lg:hidden md:hidden">
-          <img className="m-auto mt-20" src={aboutMobile} />
-
           <img className="m-auto mt-20" src={hiwMobile} />
 
           <img className="m-auto mt-20" src={title} />
