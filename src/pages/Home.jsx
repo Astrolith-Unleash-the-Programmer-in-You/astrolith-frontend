@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 
 import {
   aboutImg,
@@ -11,49 +11,51 @@ import {
   techMobile,
   title,
 } from "../assets";
-import { WhyAstro } from "../components";
+import { Loader, WhyAstro } from "../components";
 // import About from '../components/About'
 import Hero from "../components/Hero";
 import TopPlayers from "../components/TopPlayers";
+import About from "../components/Home/About";
 
 const Home = () => {
   return (
     <div>
       <Hero />
+      <About />
 
       <div className="">
         <WhyAstro />
       </div>
 
       {/* laptop view */}
-      <div className="hidden lg:block md:block">
-        <img src={aboutImg} />
+      <Suspense fallback={<Loader />}>
+        <div className="hidden lg:block md:block">
+          <img className="m-auto mt-20" src={hiw} />
 
-        <img className="m-auto mt-20" src={hiw} />
+          <img className="m-auto mt-20" src={title} />
 
-        <img className="m-auto mt-20" src={title} />
+          <TopPlayers />
 
-        <TopPlayers />
+          <img className="m-auto mt-20" src={tech} />
 
-        <img className="m-auto mt-20" src={tech} />
-
-        <img className="m-auto mt-20" src={footer} />
-      </div>
+          <img className="m-auto mt-20" src={footer} />
+        </div>
+      </Suspense>
 
       {/* mobile view */}
-      <div className=" lg:hidden md:hidden">
-        <img className="m-auto mt-20" src={aboutMobile} />
+      <Suspense fallback={<Loader />}>
+        <div className=" lg:hidden md:hidden">
+          <img className="m-auto mt-20" src={hiwMobile} />
 
-        <img className="m-auto mt-20" src={hiwMobile} />
+          <img className="m-auto mt-20" src={title} />
 
-        <img className="m-auto mt-20" src={title} />
+          <TopPlayers />
 
-        <TopPlayers />
+          <img className="m-auto mt-[3rem]" src={techMobile} />
 
-        <img className="m-auto mt-[3rem]" src={techMobile} />
-
-        <img className="m-auto mt-20" src={footerMobile} />
-      </div>
+          <img className="m-auto mt-20" src={footerMobile} />
+        </div>
+      </Suspense>
     </div>
   );
 };

@@ -13,6 +13,10 @@
   color-scheme: dark;
 }
 
+.marketplace__wapons-display {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+}
+
 .hash-span {
   margin-top: -100px;
   padding-bottom: 100px;
@@ -51,10 +55,9 @@
   -webkit-text-fill-color: transparent;
 }
 .why_p {
-  color: rgba(255, 255, 255, 0.66);
-
+  /* color: rgba(255, 255, 255, 0.66); */
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   text-align: center;
-  font-family: Inter;
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
@@ -69,8 +72,14 @@
 .bg {
   border-radius: 10000px;
   background: rgba(0, 0, 0, 0.18);
-
+  /* background: #ffffff98; */
   backdrop-filter: blur(15px);
+}
+.loader {
+  border-radius: 10000px;
+  background: rgba(250, 247, 247, 0.18);
+
+  backdrop-filter: blur(5px);
 }
 .cert {
   display: flex;

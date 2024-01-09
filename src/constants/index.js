@@ -26,7 +26,10 @@
 //   } from "../assets";
 
 import {
+  CertificateButton,
+  DashboardButton,
   Diamond,
+  MarketplaceButton,
   about,
   axe,
   blade,
@@ -108,17 +111,20 @@ const dashLinks = [
   {
     id: "dashboard",
     title: "Dashboard",
-    img: dashboard,
+    text: dashboard,
+    activeText: DashboardButton,
   },
   {
     id: "marketPlace",
     title: "MarketPlace",
-    img: marketplace,
+    text: marketplace,
+    activeText: MarketplaceButton,
   },
   {
     id: "certificate",
     title: "Certificate",
-    img: certificate,
+    text: certificate,
+    activeText: CertificateButton,
   },
   {
     id: "certificate",
@@ -201,8 +207,8 @@ const marketItems = [
     coinNo: "45",
   },
   {
-    img: knife,
-    name: "blade",
+    img: axe,
+    name: "axe",
     coinImg: coin,
     coinNo: "45",
   },
@@ -239,6 +245,36 @@ const marketItems = [
   {
     img: knife,
     name: "blade",
+    coinImg: coin,
+    coinNo: "45",
+  },
+  // {
+  //   img: crest,
+  //   name: "blade",
+  //   coinImg: coin,
+  //   coinNo: "45",
+  // },
+  // {
+  //   img: key,
+  //   name: "blade",
+  //   coinImg: coin,
+  //   coinNo: "45",
+  // },
+  // {
+  //   img: book,
+  //   name: "spells ",
+  //   coinImg: coin,
+  //   coinNo: "45",
+  // },
+  {
+    img: axe,
+    name: "axe",
+    coinImg: coin,
+    coinNo: "45",
+  },
+  {
+    img: magicPotion,
+    name: "potion ",
     coinImg: coin,
     coinNo: "45",
   },

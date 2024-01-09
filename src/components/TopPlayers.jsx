@@ -101,24 +101,22 @@ const TopPlayers = () => {
       {/* laptop view */}
       <div className="p-5 m-5 hidden lg:block mb-10">
         <h1 className="text-center my-10 font-bold text-[30px]">Top Players</h1>
-        <div className="flex pb-10 justify-center gap-10">
+        <div className="flex pb-10 justify-center gap-10 ">
           {topPlayers.map((player) => (
             // eslint-disable-next-line react/jsx-key
-            <div className="w-[30%] h-[30%]">
-              <div>
-                <img className="" src={player.img} />
+            <div className="w-[22rem] h-[29.5rem] relative">
+              <img className="w-[22rem] h-[29.5rem]" src={player.img} />
 
-                <div className="flex  justify-between gap-4 items-center bg-[#434343] px-3 text-center rounded-xl">
-                  <p className="">{player.handle}</p>
+              <div className="flex py-2 absolute bottom-0 inset-x-0 bg-black/30  justify-between gap-4 items-center  px-3 text-center ">
+                <p className="">{player.handle}</p>
 
-                  <div className=" w-[10px] h-[70px] border-2 bg-red-200"></div>
+                <div className="  h-[50px]  w-[0.15rem] bg-gray-400/20"></div>
 
-                  <div className="flex flex-col items-start gap-2">
-                    {/* <img className="rounded-full" src={Diamond} /> */}
+                <div className="flex flex-col items-start gap-2">
+                  {/* <img className="rounded-full" src={Diamond} /> */}
 
-                    <h3>{player.userName}</h3>
-                    <small>{player.exp}</small>
-                  </div>
+                  <h3>{player.userName}</h3>
+                  <small>{player.exp}</small>
                 </div>
               </div>
             </div>
