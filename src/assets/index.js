@@ -32,10 +32,17 @@ import knife from "./knife.svg";
 import axe from "./axe.svg";
 import hammer from "./hammer.svg";
 import magicPotion from "./magic potion.svg";
-
+import dashboardLogo from "./dashboard-logo.svg";
+import CertificateButton from "./CertificateButton.svg";
+import MarketplaceButton from "./MarketplaceButton.svg";
+import DashboardButton from "./DashboardButton.svg";
 export {
   logo,
   menuIcon,
+  dashboardLogo,
+  CertificateButton,
+  MarketplaceButton,
+  DashboardButton,
   hb,
   home,
   lore,
