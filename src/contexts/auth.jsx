@@ -11,25 +11,27 @@ export const AuthProvider = ({ children }) => {
   const [connected, setConnected] = useState(false);
   const [userName, setUserName] = useState('');
   const [userDID, setUserDID] = useState('');
+  const [protocolReady, setProtocolReady] = useState(null);
   const [web5, setWeb5] = useState(null);
 
   const connections = useCallback(async() =>{
     const {web5,connectedUserDID} = await connectToAstrolith();
-    const protocol = new AstrolithProtocol();
-    const configProtocol = await protocol.configureProtocol(web5,connectedUserDID,CONSTANTS.PROTOCOLDID);
+    const protocol = new AstrolithProtocol(web5,connectedUserDID,CONSTANTS.PROTOCOLDID);
 
-    console.log(">hello<><",configProtocol,{connectedUserDID,protocolID:CONSTANTS.PROTOCOLDID})
-    const schema = protocol.astrolithProtocol.types.didResolver.schema;
-    console.log(schema,"config")
-    const resolver = new AstrolithDIDResolver(web5,protocol.astrolithProtocol.protocol,CONSTANTS.PROTOCOLDID,schema);
+    console.log(protocol,connectedUserDID)
+    console.log(">hello<><",{connectedUserDID,protocolID:CONSTANTS.PROTOCOLDID})
+    // const schema = protocol.astrolithProtocol.types.didResolver.schema;
+    // console.log(schema,"config")
+    // const resolver = new AstrolithDIDResolver(web5,protocol.astrolithProtocol.protocol,CONSTANTS.PROTOCOLDID,schema);
 
-    const resolvedProtocol = await resolver.readOrCreate(connectedUserDID);
-    console.log(resolvedProtocol,"didResolve")
+    // const resolvedProtocol = await resolver.readOrCreate(connectedUserDID);
+    // console.log(resolvedProtocol,"didResolve")
 
-    const displayName = resolver.resolve(connectedUserDID);
-    console.log(displayName,"this is display name");
+    // const displayName = resolver.resolve(connectedUserDID);
+    // console.log(displayName,"this is display name");
 
     setWeb5(web5);
+    setProtocolReady(protocol);
     setUserDID(connectedUserDID);
   }, []);
 
@@ -43,10 +45,12 @@ export const AuthProvider = ({ children }) => {
         connected,
         setConnected,
         userName,
+        userDID,
         setUserName,
         web5,
         setWeb5,
-        connections
+        connections,
+        protocolReady
       }}
     >
       {children}

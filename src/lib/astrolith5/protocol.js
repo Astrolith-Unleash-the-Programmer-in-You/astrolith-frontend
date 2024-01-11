@@ -208,11 +208,6 @@ export class AstrolithProtocol {
                         "can": "write"
                     },
                     {
-                        "who": "recipient",
-                        "of":"didResolver",
-                        "can": "write"
-                    },
-                    {
                         "who": "anyone",
                         "can": "read"
                     }
@@ -221,11 +216,17 @@ export class AstrolithProtocol {
         }
     };
 
+    constructor(web5,userDID,protocolDID){
+        this.web5 = web5;
+        this.userDID = userDID;
+        this.profileDID = this.profileDID;
 
+        this.installed = this.configureProtocol();
+    }
 
-    configureProtocol = async (web5,userDID,protocolDID) => {
+    configureProtocol = async () => {
 			// query the list of existing protocols on the DWN
-			const { protocols, status } = await web5.dwn.protocols.query({
+			const { protocols, status } = await this.web5.dwn.protocols.query({
 				message: {
 					filter: {
 						protocol: this.astrolithProtocol.protocol,
@@ -240,21 +241,21 @@ export class AstrolithProtocol {
 
 			// if the protocol already exists, we return
 			if (protocols.length > 0) {
-				console.log("Protocol already exists");
-				return;
+				console.log("Protocol already exists",protocols);
+				return {installed:true, protocol: protocols[0]};
 			}
 
 			// configure protocol on local DWN
 			const { status: configureStatus, protocol } =
-				await web5.dwn.protocols.configure({
+				await this.web5.dwn.protocols.configure({
 					message: {
 						definition: this.astrolithProtocol,
 					},
 				});
 
-                console.log({userDID,protocolDID})
+                console.log({userDID:this.userDID,protocolDID:this.profileDID})
 
-			const {status:s1}=await protocol.send(userDID);
+			const {status:s1}=await protocol.send(this.userDID);
 			// const { status: s2 } = await protocol.send(protocolDID);
 			console.log(
 				"Protocol configured error source",
@@ -262,6 +263,6 @@ export class AstrolithProtocol {
 				protocol,
                 s1
 			);
-			return protocol;
+			return {installed:this.installed, protocol};
 		};
 }
