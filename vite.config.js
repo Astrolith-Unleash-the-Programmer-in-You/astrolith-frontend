@@ -9,6 +9,6 @@ export default defineConfig({
 	theme: {
 		extend: {},
 	},
-	plugins: [nodePolyfills(),react(),],
+	plugins: [react(),nodePolyfills()],
 	assetsInclude: ["**/*.glb"],
 });

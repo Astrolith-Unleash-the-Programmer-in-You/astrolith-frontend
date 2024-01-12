@@ -19,13 +19,13 @@ export class PlayerProfile {
 	}
 
 	//get profile
-	getProfile = async (userDID) => {
+	getProfile = async (profileID) => {
 		await this.protocolReady;
+         if (!profileID) throw new Error("profileID is required");
 		const profileData = await this.web5.dwn.records.read({
-			from: userDID,
 			message: {
 				filter: {
-					...this.profileFilter,
+					recordId: profileID,
 				},
 			},
 		});
@@ -40,17 +40,19 @@ export class PlayerProfile {
 	getProfiles = async () => {
 		await this.protocolReady;
 		const { records: profileDatas, status } = await this.web5.dwn.records.query({
-			// from: this.protocolID,
+			from: this.protocolID,
 			message: {
 				filter: {
-					// ...this.profileFilter,
-					schema: this.profileSchema,
+					...this.profileFilter,
 				},
 			},
 		});
 		console.log(profileDatas, status, "profile data");
 		const profiles = await Promise.all(
-			profileDatas.map((el) => el.data?.json())
+			profileDatas.map(async(el) => {
+                const item = await el.data.json();
+                return{...item,id:el.id}}
+                )
 		);
 		return profiles;
 	};
@@ -58,6 +60,7 @@ export class PlayerProfile {
 	//create profile
 	createProfile = async (profileObject, userDID) => {
 		await this.protocolReady;
+        if (!userDID) throw new Error("user DID is required");
 		const { record: profile, status } = await this.web5.dwn.records.create({
 			data:{ ...profileObject,createdAt:Temporal.Now.instant()},
 			message: {
@@ -68,36 +71,37 @@ export class PlayerProfile {
 		});
 		console.log(profile, "created", status, profileObject);
 		//attach profile to the current user
-		await Promise.all([profile.send(userDID, profile.send(this.protocolID))]);
-		return profile;
+		await Promise.all([profile.send(userDID), profile.send(this.protocolID)]);
+		return {...profile,id:profile.id};
 	};
 
 	//update profile
 	updateProfile = async (profileObject, profileID) => {
 		// Get the profile
-		const { record: profileData } = await this.web5.dwn.records.read({
+        if(!profileID) throw new Error("profileID is required");
+		const { record: profileData,status:ps } = await this.web5.dwn.records.read({
 			message: {
 				filter: {
 					recordId: profileID,
-					...this.profileFilter,
 				},
 			},
 		});
+        if(ps.status.code == 404) return ps;
 		const profiles = await profileData.data?.json();
 
 		// Update the profile
 		const { status } = await profileData.update({
-			data: { ...profiles, profileObject },
+			data: { ...profiles, ...profileObject },
 		});
 		return status;
 	};
 
 	//delete profile
 	deleteProfile = async (profileID) => {
+         if (!profileID) throw new Error("profileID is required");
 		const status = await this.web5.dwn.records.delete({
 			message: {
 				recordId: profileID,
-				...this.profileFilter,
 			},
 		});
 

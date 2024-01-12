@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import MarketPlace from "./pages/MarketPlace";
 import Certificate from "./pages/certificate";
+
 // import {motion} from 'framer-motion'
 
 const App = () => {
