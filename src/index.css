@@ -16,6 +16,10 @@
   color-scheme: dark;
 }
 
+.marketplace__wapons-display {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+}
+
 .hash-span {
   margin-top: -100px;
   padding-bottom: 100px;

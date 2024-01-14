@@ -50,7 +50,7 @@ const VolcanoPage = () => {
           transition={{
             type: "tween",
             ease: "easeIn",
-            duration: 1.5,
+            duration: 1.8,
           }}
           className="rounded-3xl shadow-2xl h-[80vh] lg:w-[90vh] w-[75vh]
        m-auto top-[6vh] relative bg-white border-x-4 border-orange-600 "

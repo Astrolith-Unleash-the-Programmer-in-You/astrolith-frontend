@@ -21,7 +21,7 @@ const DashboardContent = () => {
           Achivements (12)
         </h1>
 
-        <div className="flex gap-3 lg:flex-nowrap flex-wrap">
+        <div className="flex gap-3 lg:flex-nowrap flex-wrap ">
           {achievements.map((ach) => (
             <div className="rounded-xl p-5 bg-[#232323] w-[30%] flex flex-col items-center">
               <img className="w-[5rem] h-[5rem]" src={ach.img} />
