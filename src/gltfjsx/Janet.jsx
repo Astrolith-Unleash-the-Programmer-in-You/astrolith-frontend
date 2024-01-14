@@ -5,7 +5,7 @@ Command: npx gltfjsx@6.2.16 src/assets/models/janet.glb
 
 import React, { useEffect, useRef, useState } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
-import baseScene from "../assets/models/janet.glb";
+import baseScene from "../assets/models/Janet.glb";
 import { useFrame } from "@react-three/fiber";
 
 export function Janet({ props, handleCharacterMove }) {
