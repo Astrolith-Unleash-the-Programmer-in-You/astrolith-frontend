@@ -8,6 +8,7 @@ import { Janet } from "../gltfjsx/Janet";
 
 const JanetCanvas = ({ handleCharacterMove }) => {
   // const lightRef = useRef();
+  // vite-plugin-node-stdlib-browser
   return (
     <Canvas
       // shadows
