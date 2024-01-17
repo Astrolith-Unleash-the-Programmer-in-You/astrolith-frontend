@@ -2,21 +2,24 @@
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 // import { OrbitControls } from "@react-three/drei";
-import { Volcano } from "../components/Volcano";
 import * as THREE from "three";
+import { Volcano } from "../gltfjsx/Volcano";
+import React from "react";
+import { Volcano2 } from "../gltfjsx/Volcano2";
 
-const VolcanoCanvas = () => {
+const VolcanoCanvas = ({ position }) => {
   // const lightRef = useRef();
   return (
     <Canvas
       // shadows
       // frameloop="demand"
-      camera={{ near: 0.2, far: 10000, position: [0, 0, 5] }}
-      onCreated={({ gl }) => {
-        gl.shadowMap.enabled = true;
-        gl.shadowMap.type = THREE.PCFShadowMap;
-      }}
-      gl={{ preserveDrawingBuffer: true }}
+      // camera={{ near: 0.2, far: 10000, position: [0, 0, 5] }}
+      camera={{ fov: 60, near: 0.1, far: 1000, position: [0, 0, 12.15] }}
+      // onCreated={({ gl }) => {
+      //   gl.shadowMap.enabled = true;
+      //   gl.shadowMap.type = THREE.PCFShadowMap;
+      // }}
+      // gl={{ preserveDrawingBuffer: true }}
     >
       {/* <ambientLight intensity={0.5} />
       <rectAreaLight intensity={0.5} />
@@ -29,15 +32,15 @@ const VolcanoCanvas = () => {
         intensity={0.5}
         castShadow={true}
       /> */}
-      <ambientLight intensity={0.05} />
-      <directionalLight position={[0, 1.3, 0.05]} intensity={1.5} />
-      <hemisphereLight intensity={0.15} groundColor="black" />
-      <pointLight position={[0, -20, 10]} intensity={10.5} />
+      <ambientLight intensity={0.7} />
+      <directionalLight intensity={4.9} />
+      <hemisphereLight intensity={0.3} groundColor="black" />
+      <pointLight position={[0.5, -2.5, -9.8]} intensity={2.5} />
       <spotLight
         position={[-20, -50, 10]}
         angle={0.92}
         prenumbre={1}
-        intensity={12.3}
+        intensity={0.3}
         castShadow
         // shadow-mapSize={1024}
       />
@@ -49,7 +52,7 @@ const VolcanoCanvas = () => {
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 2}
         /> */}
-        <Volcano />
+        <Volcano2 position={position} />
       </Suspense>
 
       <meshStandardMaterial color="red" />
