@@ -1,7 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import nodePolyfills from "vite-plugin-node-stdlib-browser";
+import { NodeGlobalsPolyfillPlugin } from "@esbuild-plugins/node-globals-polyfill";
+import { NodeModulesPolyfillPlugin } from "@esbuild-plugins/node-modules-polyfill";
+import { nodePolyfills } from "vite-plugin-node-polyfills";
 
 
 export default defineConfig({
@@ -9,6 +11,29 @@ export default defineConfig({
 	theme: {
 		extend: {},
 	},
-	plugins: [react(),nodePolyfills()],
+	// resolve: {
+	// 	alias: {
+	// 		events: "rollup-plugin-node-polyfills/polyfills/events",
+	// 	},
+	// },
+	build: {
+		rollupOptions: {
+			external: ["fs/promises"],
+		},
+	},
+	plugins: [
+		NodeGlobalsPolyfillPlugin({ buffer: true, process: true }),
+		NodeModulesPolyfillPlugin(),
+		nodePolyfills({
+			globals: {
+				Buffer: true,
+				global: true,
+				process: true,
+			},
+			protocolImports: true,
+		}),
+		react(),
+	],
+	optimizeDeps: { exclude: ["fsevents"] },
 	assetsInclude: ["**/*.glb"],
 });
