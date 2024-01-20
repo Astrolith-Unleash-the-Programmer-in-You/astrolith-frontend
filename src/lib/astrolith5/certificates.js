@@ -1,6 +1,5 @@
-import { fabric } from "fabric";
-import { Temporal } from "@js-temporal/polyfill";
 import { VerifiableCredential, PresentationExchange } from "@web5/credentials";
+import { addYearsToCurrentYear } from "../../utils/TimeUtils";
 
 /**
  *@notice certificate manager
@@ -26,18 +25,16 @@ export class Certificates {
 		],
 	};
 
-
-
 	constructor(web5, protocol, certificateSchema, protocolID) {
 		this.web5 = web5;
 		this.protocolID = protocolID;
 		this.protocol = protocol;
 		this.certificateSchema = certificateSchema;
 		this.certificateFilter = {
-				protocol,
-				protocolPath: "certificates",
-				schema: certificateSchema,
-			};
+			protocol,
+			protocolPath: "certificates",
+			schema: certificateSchema,
+		};
 	}
 
 	//get a user certificate
@@ -57,7 +54,7 @@ export class Certificates {
 
 	//get all user certificates
 	getAllCertificates = async (userDID) => {
-		const { record: certifcatesData } = await this.web5.dwn.records.read({
+		const { record: certifcatesData } = await this.web5.dwn.records.query({
 			from: userDID,
 			message: {
 				filter: {
@@ -72,38 +69,49 @@ export class Certificates {
 	};
 	//using fabric js to generate images from templates
 	//issue certificate
-	issueCertificate = async (template, userDID, certificateObject) => {
-		//process file object to base64 string
-		const image = await this.convertTemplateToImage(template);
-		const obj = { ...certificateObject, image };
-		let now = Temporal.Now.instant();
-		const expirationDate = now.add({ years: 100 });
+	issueCertificate = async (certificateObject) => {
+
+		console.log(
+			`Issuing certificate ${JSON.stringify(certificateObject)}`,
+			certificateObject.userDID,
+			certificateObject.holder
+		);
+		// Get the current date and time
+		const CERTIFICATE_VALIDITY_DURATION = addYearsToCurrentYear(100);
+		const expirationDate = CERTIFICATE_VALIDITY_DURATION;
+		console.log(expirationDate);
 		//create VC for astrolith
 		const vc = await VerifiableCredential.create({
 			type: "AstrolithCertificate",
 			issuer: this.protocolID,
-			subject: userDID,
+			subject: certificateObject.userDID,
 			expirationDate: expirationDate,
-			data: obj,
+			data: certificateObject,
 		});
 
-		//sign certificate
-		const vc_jwt_certificate = await vc.sign({ did: userDID });
+		console.log("Certificate",vc,"sert issuer")
 
+		//sign certificate
+		const vc_jwt_certificate = await vc.sign({
+			did: this.protocolID,
+		});
+
+		console.log("Signing certificate",vc,"sert issuer error",vc_jwt_certificate);
 		//create certificate
 		const { record: certificateData } = await this.web5.dwn.records.create({
-			data: { ...obj, verifiableCertificate: vc_jwt_certificate },
+			data: { ...certificateObject, verifiableCertificate: vc_jwt_certificate },
 			message: {
 				...this.certificateFilter,
 				published: true,
 			},
 		});
-
+		console.log(certificateData, "certificate has been issued");
 		//attach certificate to subject DID
 		await Promise.all([
-			certificateData.send(userDID),
+			certificateData.send(certificateObject.userDID),
 			certificateData.send(this.protocolID),
 		]);
+
 		return certificateData;
 	};
 
@@ -143,35 +151,5 @@ export class Certificates {
 			console.log(error);
 			return null;
 		}
-	};
-
-	//helper function to convert html certificate template to base64 encoded string
-	convertTemplateToImage = async (template) => {
-		const canvas = new fabric.Canvas();
-
-		// const template = `
-		// <div>
-		//     <h2>Certificates</h2>
-		//     <h2>Name : Surath</h2>
-		//     <h2>this is to certify that surath is a qualified developer</h2>
-		// </div>
-		// `;
-
-		// Convert HTML content to Fabric.js objects
-		const fabricObjects = fabric.util.groupSVGElements(
-			fabric.parseSVGDocument(template, {}),
-			{
-				width: 400,
-				height: 200,
-			}
-		);
-
-		// Add the Fabric.js objects to the canvas
-		canvas.add(fabricObjects);
-
-		// If you want to export the canvas to an image
-		const dataUrl = canvas.toDataURL();
-		console.log("Data URL:", dataUrl);
-		return dataUrl;
 	};
 }

@@ -105,42 +105,77 @@ export class AstrolithSetup {
 	//load game state
 	loadGameState = async () => {
 		//load fighters
-		// const fighters = await this.fighterCharacters.getAllFighters();
+		const fighters = await this.fighterCharacters.getAllFighters();
 		//playerprofile
-		// const currentPlayerProfile = await this.playerProfile.getProfile(this.userDID);
+		const currentPlayerProfile = await this.playerProfile.getProfile(this.userDID);
 		// //playeraccount
-		// const { gameAccount, accountData } = await this.playerAccount.getGameAccount(this.userDID);
+		const { gameAccount, accountData } = await this.playerAccount.getGameAccount(this.userDID);
 		// //top 10 leader board players
-		// const playersProfile = await this.playerProfile.getProfiles();
-		// const playersAccount = await this.playerAccount.getGameAccounts();
+		const playersProfile = await this.playerProfile.getProfiles();
+		const playersAccount = await this.playerAccount.getGameAccounts();
 		// ///@dev array of players profile should equal the account and each contains a userDID key in their object
 		// ///@dev On^2 O of n square function //:TODO: optimize this
-		// const mappedProfileToAccounts = playersProfile.map(profile=>{
-		//     const account = playersAccount.find(account=> account.userDID === profile.userDID);
-		//     if(!account) return null;
-		//     return {account,profile};
-		// })
+		const mappedProfileToAccounts = playersProfile.map(profile=>{
+		    const account = playersAccount.find(account=> account.userDID === profile.userDID);
+		    if(!account) return null;
+		    return {account,profile};
+		})
 		// //get top 10 players from accounts
-		// const top10Players =  mappedProfileToAccounts.sort((a,b) => b.account.gamePoints - a.account.gamePoints).slice(0,10);
+		const top10Players =  mappedProfileToAccounts.sort((a,b) => b.account.gamePoints - a.account.gamePoints).slice(0,10);
 		// //load current player game level games
-		// const currentGamePlay = await this.gameQTC.getAllQTCLevel(gameAccount.level);
+		const currentGamePlay = await this.gameQTC.getAllQTCLevel(gameAccount.level);
 		// //load current player achievements
-		// const playerAchievements = await this.playerAchievement.getAchievements(this.userDID);
+		const playerAchievements = await this.playerAchievement.getAchievements(this.userDID);
 		// //load current player collectibles
-		// const playerCollectibles =
-		// 					await this.playerCollectibles.getCollectible(this.userDID);
+		const playerCollectibles =
+							await this.playerCollectibles.getCollectible(this.userDID);
 		// //load current player certificates
-		// const playerCertificates = await this.playerCertificate.getAllCertificates(this.userDID);
-		// return {
-		//     fighters,
-		//     currentPlayerProfile,
-		//     gameAccount,
-		//     accountData,
-		//     top10Players,
-		//     currentGamePlay,
-		//     playerAchievements,
-		//     playerCollectibles,
-		//     playerCertificates
-		// }
+		const playerCertificates = await this.playerCertificate.getAllCertificates(this.userDID);
+		return {
+		    fighters,
+		    currentPlayerProfile,
+		    gameAccount,
+		    accountData,
+		    top10Players,
+		    currentGamePlay,
+		    playerAchievements,
+		    playerCollectibles,
+		    playerCertificates
+		}
 	};
+
+	//create new user acccount
+	createNewUserAccount = async(playerDetails)=>{
+		//verify that no user is already registered with the userDID and userName
+		const user = await this.playerProfile.getProfile()
+		//create player profile
+		const playersProfile = await this.playerProfile.createProfile({
+			fullName:playerDetails.fullName,
+			userName:playerDetails.userName,
+			userDID:this.userDID,
+			avatar:playerDetails.avatar, //base64 encoded avatar,
+
+		},this.userDID)
+		const account = await this.playerAccount.createGameAccount(
+			{
+				userDID: this.userDID,
+				tips: 3,
+				health: 100,
+				experience: 0,
+				coins: 0,
+				elixer: 0,
+				level: 1,
+				enemies: 0,
+				weapons: [],
+				armor: 0,
+				spells: [], //"Arise oh queen shiba of javascript & Decimate them all:: const let var in for every slice 1"
+				streaks: [], //{level:1,streak:3}
+				fighters: [],
+				selectedFighter: "",
+			},
+			this.userDID
+		);
+
+		return {user,account};
+	}
 }

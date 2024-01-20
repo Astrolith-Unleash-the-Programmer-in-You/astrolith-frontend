@@ -26,7 +26,7 @@ const Hero = () => {
           javascript
         </p>
         <Link
-          to="/"
+          to="/volcano"
           className="rounded-2xl gap-2 capitalize flex items-center border-2 px-5 py-1 my-4 w-[12.1rem]"
         >
           <img src={play} alt="play" />
@@ -45,7 +45,7 @@ const Hero = () => {
             javascript
           </p>
           <Link
-            to="/"
+            to="/game"
             className="rounded-2xl gap-2 capitalize flex items-center border-2 px-5 py-1 my-4 w-[12.1rem]"
           >
             <img src={play} alt="play" />

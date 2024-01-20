@@ -1,3 +1,5 @@
+//each game scene should have at least 10 questions to cover all scenarios
+
 export const level1 = {
 	scene1: {
 		id: "scene1-level1-01",
@@ -87,5 +89,64 @@ export const level1 = {
 			},
 		],
 		testRunner: "console.log(speak);console.log(echo);console.log(shout);console.log(speak+echo);console.log(forestEffect);",
+	},
+};
+
+//array manipulation
+export const arrayManipulationLevel = {
+	scene1: {
+		id: "scene1-array-01",
+		title: "Array Initialization and Access",
+		description:
+			"Initialize an array called 'numbers' with the values 5, 10, 15, 20. Access the second element of the array.",
+		testCases: [
+			{
+				input: [null],
+				output: 10,
+				title: "The second element of the 'numbers' array should be 10",
+			},
+		],
+		testRunner: "const numbers = [5, 10, 15, 20]; console.log(numbers[1]);",
+	},
+	scene2: {
+		id: "scene2-array-01",
+		title: "Array Push and Pop",
+		description:
+			"Add the value 25 to the end of the 'numbers' array with value [5, 10, 15, 20] . Remove the last element from the array.",
+		testCases: [
+			{
+				input: [null],
+				output: [5, 10, 15, 20, 25],
+				title: "The 'numbers' array should have 25 as its last element",
+			},
+			{
+				input: [null],
+				output: 20,
+				title:
+					"The last element of the 'numbers' array should be 20 after removal",
+			},
+		],
+		testRunner: "console.log(numbers.push(25));  console.log(numbers.pop());",
+	},
+	scene3: {
+		id: "scene3-array-01",
+		title: "Array Length and Concatenation",
+		description:
+			"Create a new array called 'moreNumbers' with values 30, 35, 40. Concatenate 'numbers' with value [5, 10, 15, 20]  and 'moreNumbers' into a new array called 'combinedNumbers'. Determine the length of 'combinedNumbers'.",
+		testCases: [
+			{
+				input: [null],
+				output: [5, 10, 15, 20, 30, 35, 40],
+				title:
+					"The 'combinedNumbers' array should have values from 'numbers' and 'moreNumbers'",
+			},
+			{
+				input: [null],
+				output: 7,
+				title: "The length of the 'combinedNumbers' array should be 7",
+			},
+		],
+		testRunner:
+			"const moreNumbers = [30, 35, 40]; const combinedNumbers = numbers.concat(moreNumbers); console.log(combinedNumbers); console.log(combinedNumbers.length);",
 	},
 };
