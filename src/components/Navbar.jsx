@@ -5,11 +5,22 @@ import { navLinks } from "../constants";
 import { logo, menuIcon, xIcon } from "../assets";
 import { connectToAstrolith } from "../lib/astrolith5/connection";
 import { useAuth } from "../contexts/auth";
+import { Loader } from "@react-three/drei";
+import { Audio, DNA } from "react-loader-spinner";
 
 const Navbar = () => {
   const [active, setActive] = useState("");
+  const [loading,setLoading] = useState(false);
   const [menuItems, setMenuItems] = useState(false);
-  const {setConnected,connections} = useAuth();
+  const {connected,connections,userName,userDID} = useAuth();
+
+  const trimed = (userDID.slice(0,7) + "..."+userDID.slice(userDID.length-9,userDID.length))
+
+  const handleLoading = async ()=>{
+    setLoading(prev=>!prev);
+    const connected = await connections();
+    setLoading(prev=>!prev)
+  }
 
   return (
     <div className="">
@@ -52,10 +63,23 @@ const Navbar = () => {
               </li>
             ))}
           </ul>
-
-          <button onClick={async()=>{await connections()}} className="text-center py-3 capitalize text-xl m-10 rounded-3xl border-2">
-            connect
+          {
+            loading && <button disabled className="text-center py-3 capitalize text-xl m-10 rounded-3xl border-2">
+              <Loader/>
+            </button>
+          }
+          {
+            !loading && 
+          <button disabled={loading} onClick={async()=>{await handleLoading()}} className="text-center py-3 capitalize text-xl m-10 rounded-3xl border-2">
+            {
+              !connected && <span>connect</span>
+            }
+            {
+              connected && <span>{userName?userName:trimed}   <Loader/></span>
+            }
           </button>
+          }
+
         </nav>
       ) : (
         <nav
@@ -91,7 +115,35 @@ const Navbar = () => {
           </ul>
 
           <div className="flex mx-7 items-center gap-3">
-            <button onClick={()=>connections()} className=" px-5  py-1 rounded-3xl border-2">connect</button>
+
+               {
+            loading && <button disabled className="px-5  py-0 rounded-3xl border-2">
+
+              <DNA
+                height="40"
+                width="120"
+                radius="9"
+                visible={true}
+                color="orange"
+                ariaLabel="connecting..."
+                // wrapperStyle
+                // wrapperClass
+              />
+
+            </button>
+          }
+          {
+            !loading && 
+          <button disabled={loading} onClick={async()=>{await handleLoading()}} className="px-5  py-1 rounded-3xl border-2">
+            {
+              !connected && <span>connect</span>
+            }
+            {
+              connected && <span>{userName?userName:trimed}   <Loader/></span>
+            }
+          </button>
+          }
+
 
             <div onClick={() => setMenuItems(!menuItems)} className="lg:hidden">
               <img src={menuIcon} alt="menu" />

@@ -14,30 +14,23 @@ export const AuthProvider = ({ children }) => {
   const [protocolReady, setProtocolReady] = useState(null);
   const [web5, setWeb5] = useState(null);
 
+
   const connections = useCallback(async() =>{
     const {web5,connectedUserDID} = await connectToAstrolith();
     const protocol = new AstrolithProtocol(web5,connectedUserDID,CONSTANTS.PROTOCOLDID);
 
-    console.log(protocol,connectedUserDID)
-    console.log(">hello<><",{connectedUserDID,protocolID:CONSTANTS.PROTOCOLDID})
-    // const schema = protocol.astrolithProtocol.types.didResolver.schema;
-    // console.log(schema,"config")
-    // const resolver = new AstrolithDIDResolver(web5,protocol.astrolithProtocol.protocol,CONSTANTS.PROTOCOLDID,schema);
+    const schema = protocol.astrolithProtocol.types.didResolver.schema;
+    const resolver = new AstrolithDIDResolver(web5,protocol.astrolithProtocol.protocol,CONSTANTS.PROTOCOLDID,schema);
 
-    // const resolvedProtocol = await resolver.readOrCreate(connectedUserDID);
-    // console.log(resolvedProtocol,"didResolve")
-
-    // const displayName = resolver.resolve(connectedUserDID);
-    // console.log(displayName,"this is display name");
+    const displayName = await resolver.resolve(connectedUserDID);//{@type:"",userName:"",userDID:"""}
 
     setWeb5(web5);
     setProtocolReady(protocol);
     setUserDID(connectedUserDID);
+    setConnected(true);
+    setUserDID(connectedUserDID);
+    displayName?setUserName(displayName?.userName):"";
   }, []);
-
-//   connections().then(()=>{
-
-//   })
 
   return (
     <AuthContext.Provider

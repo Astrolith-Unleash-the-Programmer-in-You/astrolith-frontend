@@ -90,7 +90,7 @@ const VolcanoPage = () => {
             </p>
 
             <Link
-              to="/volcano"
+              to="#"
               className="rounded-2xl py-3 absolute top-[18rem] bg-orange-600 text-white gap-2 capitalize mt-20 text-center border-2 px-5 my-4 w-[12.1rem]"
             >
               {/* <img src={play} alt="play" /> */}

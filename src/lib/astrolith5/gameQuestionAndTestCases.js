@@ -22,6 +22,7 @@ export class GameQuestionAndTestCases {
             protocol,
             protocolPath: "gameQuestionAndTestCases",
             schema: gameQTCSchema,
+
         };
         this.currentUser = currentUser;
         this.protocolReady = protocolReady
@@ -32,11 +33,10 @@ export class GameQuestionAndTestCases {
     getQTC= async(qtcRecordID)=>{
         await this.protocolReady;
         const { record:QTCData } = await this.web5.dwn.records.read({
-            from:this.protocolID,
+            // from:this.protocolID,
             message: {
                     filter: {
                         recordId: qtcRecordID,
-                        ...this.gameQuestionAndTestCasesFilter
                     }
                 }
             })
@@ -47,41 +47,62 @@ export class GameQuestionAndTestCases {
     //get all quesitons and test cases
     getAllQTCs = async ()=>{
          await this.protocolReady;
-         console.log("chekcalled", this.protocolID === this.currentUser);
-        const { record:qtcDatas } = await this.web5.dwn.records.read({
-            // from:this.protocolID,
-            message: {
-                    filter: {
-                        ...this.gameQuestionAndTestCasesFilter,
-                    }
-                }
-            })
-            console.log(qtcDatas)
-        const qtcs =await Promise.all(qtcDatas.map(el=>el.data?.json()));
-        return qtcs;
-    }
-    //get all games for a given stage/level
-    getAllQTCLevel = async (gameLevel)=>{
-        const { record:qtcDatas } = await this.web5.dwn.records.read({
+        const { records:qtcDatas ,status} = await this.web5.dwn.records.query({
             from:this.protocolID,
             message: {
                     filter: {
                         ...this.gameQuestionAndTestCasesFilter,
+                        dataFormat:"application/json"
                     }
                 }
             })
-        const qtcs =await Promise.all(qtcDatas.map(el=>el.data?.json()));
-        const stageGames = qtcs.filter(game => game.level === gameLevel);
+
+            console.log("Queryrecords: " , qtcDatas,status,this.currentUser);
+             const qtcs = await Promise.all(
+								qtcDatas.map(async (el) => {
+									const item = await el.data.json();
+									return { ...item, id: el.id };
+								})
+							);
+            // const qtcs = await qtcDatas.data.json();
+        // const qtcs =await Promise.all(qtcDatas.map(el=>el.data?.json()));
+        return qtcs;
+    }
+    //get all games for a given stage/level
+    getAllQTCLevel = async (gameLevel)=>{
+         await this.protocolReady;
+        const { records: qtcDatas } = await this.web5.dwn.records.query({
+					from: this.protocolID,
+					message: {
+						filter: {
+							...this.gameQuestionAndTestCasesFilter,
+							dataFormat: "application/json",
+						},
+					},
+				});
+            console.log(qtcDatas)
+        const qtcs = await Promise.all(
+					qtcDatas.map(async (el) => {
+						const item = await el.data.json();
+						return { ...item, id: el.id };
+					})
+				);
+        console.log(qtcs)
+        const stageGames = qtcs.filter(
+					(game) => game.id.split("-")[game.id.split("-").length-1] === gameLevel
+				);
         return stageGames;
     }
 
     //create a game question and test cases
     createGameQTCs= async (qtcObject) => {
+         await this.protocolReady;
         const { record :qtcData} = await this.web5.dwn.records.create({
         data: qtcObject,
         message: {
             ...this.gameQuestionAndTestCasesFilter,
-            // recipient: this.protocolID,
+            author:this.currentUser,
+            recipient: this.protocolID,
             published: true,
             dataFormat: "application/json"
         },
@@ -89,20 +110,21 @@ export class GameQuestionAndTestCases {
         console.log(qtcData); 
 
         //attach qtc to protocol DID
+        const { status:s2 } = await qtcData.send(this.protocolID);
        const {status} = await qtcData.send(this.currentUser);
-    //    console.log(status,this.protocolID)
+       console.log(status, s2);
         return qtcData;
     };
 
     //update  game question and test cases data
     updateGameQTCs=async(qtcObject,qtcRecordID)=>{
+        await this.protocolReady;
         // Get the qtc corresponding to the qtc record ID
         const { record:qtcData } = await this.web5.dwn.records.read({
             from:this.protocolID,
             message: {
                     filter: {
                         recordId: qtcRecordID,
-                        ...this.gameQuestionAndTestCasesFilter, 
                     }
                 }
         });
@@ -118,8 +140,7 @@ export class GameQuestionAndTestCases {
         const status = await this.web5.dwn.records.delete({
             from:this.protocolID,
             message: {
-                recordId: qtcRecordID,
-                ...this.gameQuestionAndTestCasesFilter,
+                    recordId: qtcRecordID,
             },
         });
 

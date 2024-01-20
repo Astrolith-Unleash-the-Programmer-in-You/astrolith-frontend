@@ -18,15 +18,27 @@ export class AstrolithDIDResolver {
 	}
 	readOrCreate = async(userDID)=>{
 
-		const { records } = await this.web5.dwn.records.read({
+		const { records } = await this.web5.dwn.records.query({
 			from: this.protocolID,
 			message: {
 				filter: {
 					...this.didResolverFilter,
-					recipient: userDID,
 				},
 			},
 		});
+
+		if (records.length > 0) {
+			const didUserNames = await Promise.all(
+				records.map((el) => el.data?.json())
+			);
+			console.log(didUserNames, "user name from did resolver");
+
+			const userName = didUserNames.filter(
+				(item) => item.userDID === userDID
+			);
+			console.log(userName?.[0], "resolver");
+			return userName?.[0];
+		}
 
 		console.log(records, "add record", this.didResolverFilter);
 
@@ -100,7 +112,7 @@ export class AstrolithDIDResolver {
 
 	//resolve DID
 	resolve = async (userDID) => {
-		const  records  = await this.web5.dwn.records.read({
+		const  {records}  = await this.web5.dwn.records.query({
 			from:this.protocolID,
 			message: {
 				filter: {
@@ -112,11 +124,9 @@ export class AstrolithDIDResolver {
 		const didUserNames = await Promise.all(records.map((el) => el.data?.json()));
 		console.log(didUserNames,"user name from did resolver")
 
-		const userName = Object.entries(didUserNames).filter(
-			([, value]) => value === userDID
-		);
+		const userName = didUserNames.filter((item) => item.userDID === userDID);
 		console.log(userName, "resolver");
-		return userName; //array [userName,DID]
+		return userName?.[0]; //array [userName,DID]
 	};
 }
 

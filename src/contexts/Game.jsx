@@ -1,35 +1,38 @@
 import  React, { createContext, useContext, useState,useCallback } from "react";
-import { connectToAstrolith } from "../lib/astrolith5/connection";
-import {AstrolithProtocol} from "../lib/astrolith5/protocol";
-import { AstrolithSetup } from '../lib/astrolith5/setup';
 import { CONSTANTS } from "../constants";
-
+import { useAuth } from "./auth";
+import { useUserContext } from "./UserAccount";
 
 const GameContext = createContext(null);
 
 export const GameProvider = ({ children }) => {
+  const [startGame,setStartGame] = useState(false);
+  const [showLevels,setShowLevels] = useState(true);
+  const [currentLevel,setCurrentLevel] = useState("");
   const [userName, setUserName] = useState('');
   const [web5, setWeb5] = useState(null);
 
 
-  const protocol = new AstrolithProtocol();
-
   return (
-    <AuthContext.Provider
+    <GameContext.Provider
       value={{
-        protocol
+        startGame,
+        showLevels,
+        setShowLevels,
+        currentLevel,
+        setCurrentLevel
       }}
     >
       {children}
-    </AuthContext.Provider>
+    </GameContext.Provider>
   );
 };
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
+export const useGame = () => {
+  const context = useContext(GameContext);
 
   if (context === undefined) {
-    throw new Error("useAuth misused context");
+    throw new Error("useGame misused context");
   }
 
   return context;
